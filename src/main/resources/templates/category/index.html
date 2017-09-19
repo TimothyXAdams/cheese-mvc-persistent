@@ -13,9 +13,9 @@
 
 
 
-
-<ul th:each="category : ${categories}">
-    <li th:text="${category.name}"></li>
+<ul>
+<!--<ul th:each="category : ${categories}">-->
+    <li th:each="category : ${categories}" th:text="${category.name}">TTTTTTTTTTTTTT</li>
     <!-- <td th:text="${cheese.description}"></td> -->
     <!-- <td th:text="${cheese.type.name}"></td> -->
 </ul>

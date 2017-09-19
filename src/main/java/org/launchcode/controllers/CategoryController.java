@@ -25,9 +25,11 @@ public class CategoryController {
 
 
     @RequestMapping(value = "")
-    public String index(Model model) {
+    public String index(Model model,
+                        @ModelAttribute @Valid Category category, Errors errors) {
 
-        model.addAttribute("category", categoryDao.findAll());
+        Iterable<Category> allCategories = categoryDao.findAll();
+        model.addAttribute("categories", allCategories);
         model.addAttribute("title", "Categories");
 
 
