@@ -1,11 +1,11 @@
 package org.launchcode.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Timothy on 9/17/2017.
@@ -43,5 +43,11 @@ public class Category {
     public Category(String name) {
         this.name = name;
     }
+
+
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private List<Cheese> cheeses = new ArrayList<>();
+
 
 }
