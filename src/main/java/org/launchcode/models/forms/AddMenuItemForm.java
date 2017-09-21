@@ -1,0 +1,63 @@
+package org.launchcode.models.forms;
+
+import org.launchcode.models.Cheese;
+import org.launchcode.models.Menu;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * Created by Timothy on 9/21/2017.
+ */
+public class AddMenuItemForm {
+
+    public AddMenuItemForm() { }
+
+    public AddMenuItemForm(String menu, String cheese) {
+        this.menu = menu;
+        this.cheese = cheese;
+
+    }
+
+
+    private Menu menu;
+
+    private Iterable<Cheese> cheeses;
+
+    @NotNull
+    private int menuId;
+
+    @NotNull
+    private int cheeseId;
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public Iterable<Cheese> getCheeses() {
+        return cheeses;
+    }
+
+    public void setCheeses(Iterable<Cheese> cheeses) {
+        this.cheeses = cheeses;
+    }
+
+    public int getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
+    }
+
+    public int getCheeseId() {
+        return cheeseId;
+    }
+
+    public void setCheeseId(int cheeseId) {
+        this.cheeseId = cheeseId;
+    }
+}
