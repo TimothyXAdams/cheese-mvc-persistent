@@ -105,10 +105,13 @@ public class MenuController {
         }
 
         //CategoryDao.add(newCategory);
-        Cheese cheese = CheeseDao.getId();
-        Menu menu = MenuDao.getId();
+
+        Cheese cheese = cheeseDao.findOne(menuItemForm.getCheeseId());
+        Menu menu = menuDao.findOne(cheese.getId());
 
         menu.addItem(cheese);
+
+
 
         menuDao.save(menu);
         return "redirect:add-Item/" + menu;
