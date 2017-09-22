@@ -12,9 +12,9 @@ public class AddMenuItemForm {
 
     public AddMenuItemForm() { }
 
-    public AddMenuItemForm(String menu, String cheese) {
+    public AddMenuItemForm(Menu menu, Iterable cheeses) {
         this.menu = menu;
-        this.cheese = cheese;
+        this.cheeses = cheeses;
 
     }
 
