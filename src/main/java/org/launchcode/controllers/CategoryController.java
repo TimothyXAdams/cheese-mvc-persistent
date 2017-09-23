@@ -49,15 +49,13 @@ public class CategoryController {
     public String add(Model model,
                       @ModelAttribute @Valid Category category, Errors errors) {
 
-        //public String processAddCategoryForm(@ModelAttribute @Valid Category newCategory,
-        //                                   Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Category");
             return "category/add";
         }
 
-        //CategoryDao.add(newCategory);
+
         categoryDao.save(category);
         return "redirect:";
     }

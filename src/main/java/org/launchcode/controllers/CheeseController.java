@@ -19,7 +19,7 @@ import javax.validation.Valid;
  * Created by LaunchCode
  */
 @Controller
-@RequestMapping("cheese")
+@RequestMapping("")
 public class CheeseController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class CheeseController {
     @Autowired
     private CategoryDao categoryDao;
 
-    // Request path: /cheese
+
     @RequestMapping(value = "")
     public String index(Model model) {
 
@@ -42,7 +42,7 @@ public class CheeseController {
     public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
-        //model.addAttribute("cheeseTypes", CheeseType.values());
+
         model.addAttribute("categories", categoryDao.findAll());
         return "cheese/add";
     }

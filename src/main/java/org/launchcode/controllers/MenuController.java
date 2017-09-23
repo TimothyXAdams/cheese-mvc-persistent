@@ -34,7 +34,7 @@ public class MenuController {
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("cheeses", menuDao.findAll());
+        model.addAttribute("menus", menuDao.findAll());
         model.addAttribute("title", "My Menus");
 
         return "menu/index";
@@ -44,8 +44,7 @@ public class MenuController {
     public String displayAddMenuForm(Model model) {
         model.addAttribute("title", "Add Menu");
         model.addAttribute(new Menu());
-        //model.addAttribute("cheeseTypes", CheeseType.values());
-        //model.addAttribute("categories", categoryDao.findAll());
+
         return "menu/add";
     }
 
@@ -54,42 +53,37 @@ public class MenuController {
     public String add(Model model,
                       @ModelAttribute @Valid Menu menu, Errors errors) {
 
-        //public String processAddCategoryForm(@ModelAttribute @Valid Category newCategory,
-        //                                   Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Menu");
             return "menu/add";
         }
 
-        //CategoryDao.add(newCategory);
+
         menuDao.save(menu);
         return "redirect:view/" + menu.getId();
     }
 
 
-    @RequestMapping(value = "view", method = RequestMethod.GET)
+    @RequestMapping(value = "view/{id}", method = RequestMethod.GET)
     public String viewMenu(Model model, @PathVariable int id) {
         model.addAttribute("title", "View Menu");
-        //model.addAttribute(new Menu());
-        //model.addAttribute("cheeseTypes", CheeseType.values());
-        //model.addAttribute("menus", menuDao.findOne(id));
-        Menu oneMenu = menuDao.findOne(id);
-        return "redirect:view/" + oneMenu;
+
+        model.addAttribute("menu", menuDao.findOne(id));
+
+        return "menu/view";
     }
 
 
-    @RequestMapping(value = "add-Item", method = RequestMethod.GET)
+    @RequestMapping(value = "add-item/{id}", method = RequestMethod.GET)
     public String addItem(Model model, @PathVariable int id) {
         model.addAttribute("title", "Add Menu");
-        //model.addAttribute(new Menu());
-        //model.addAttribute("cheeseTypes", CheeseType.values());
-        //model.addAttribute("categories", categoryDao.findAll());
+
         Menu menu = menuDao.findOne(id);
         AddMenuItemForm menuItemForm = new AddMenuItemForm(menu, cheeseDao.findAll());
         model.addAttribute("form", menuItemForm);
         model.addAttribute("title", "Add item to menu: " + menu.getName());
-        return "redirect:add-Item/" + menu;
+        return "menu/add-item";
     }
 
 
@@ -98,24 +92,18 @@ public class MenuController {
     public String addItem(Model model,
                       @ModelAttribute @Valid AddMenuItemForm menuItemForm, Errors errors) {
 
-
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Item");
+            model.addAttribute("title", "My Cheeses");
             return "menu/add-item";
         }
 
-        //CategoryDao.add(newCategory);
 
         Cheese cheese = cheeseDao.findOne(menuItemForm.getCheeseId());
-        Menu menu = menuDao.findOne(cheese.getId());
+        Menu menu = menuDao.findOne(menuItemForm.getMenuId());
 
         menu.addItem(cheese);
 
-
-
         menuDao.save(menu);
-        return "redirect:add-Item/" + menu;
+        return "redirect:/menu/view/" + menu.getId();
     }
-
-
 }
